@@ -8,14 +8,14 @@ FROM golang:1.25-bookworm AS builder
 WORKDIR /app
 
 # Copy dependency files first to leverage Docker layer caching
-COPY go.mod go.sum ./
+COPY go.mod ./
 RUN go mod download
 
 # Copy the rest of the Go source code (api, models, types, main.go, etc.)
 COPY . ./
 
-# Build the binary named 'server'
-RUN go build -v -o server ./cmd/server
+# Build the binary named 'massdata'
+RUN go build -v -o massdata ./cmd/massdata
 
 # Stage 2: Create the minimal runtime image
 FROM debian:bookworm-slim
@@ -28,14 +28,14 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 WORKDIR /app
 
 # Copy the binary from the builder stage
-COPY --from=builder /app/server ./server
+COPY --from=builder /app/massdata ./massdata
 
 # Ensure the binary has execution permissions
-RUN chmod +x ./server
+RUN chmod +x ./massdata
 
 # Cloud Run will inject the PORT env var automatically.
 EXPOSE 8080
 
 # Run the application
-CMD ["./server"]
+CMD ["./massdata"]
 
