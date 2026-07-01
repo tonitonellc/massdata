@@ -1,0 +1,5 @@
+src/ui/dist
+src/ui/node_modules
+.claude
+*.log
+*.db
