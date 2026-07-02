@@ -42,13 +42,14 @@
               <div class="features-content">
                 <small>
                   <b>This website is in active development.</b>
-                  <br>Check out our sister site, <a href="https://bostondata.info">BostonData.info</a>!<br>
-                  <br>
+                  <br><br>
                   <b>July 1st, 2026 Release:</b><br>
                   • Initial deploy with support for Spending, Revenue, Payroll, and 
                     Settlements and Judgments datasets. <br>
                   • Annual Reports available for comparing Spending and Revenue data,
                     year-over-year. <br> 
+                  • Location Map Filter available for automatically querying Spending 
+                    data for a selected city and / or state. <br> 
                   • Sharing and saving queries is possible with URL parameters populating 
                     search filters. <br>
                   • Dark mode available via toggle in footer or <code>`</code> (backtick) 
