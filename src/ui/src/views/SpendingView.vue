@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useCollapsibleSections, useHelpModal, useSortable, useUrlSync } from '../composables/composables'
 import { aggregateByDay, chartColors, makeBarChart, makeDoughnutChart, makeLineChart } from '../utils/chartUtils'
+import SpendingMap from '../components/SpendingMap.vue'
 import { getApiUrl } from '../utils/env'
 import { formatCurrency, formatDate, formatNumber } from '../utils/format'
 import { setHashParams } from '../utils/urlFilters'
@@ -51,6 +52,7 @@ const readUrlParams = useUrlSync(
   [year, searchVendor, searchOrg, searchCabinet, searchObjectClass, searchCity, searchState, searchFund, fromDate, toDate, limit]
 )
 const { showCharts, showTable } = useCollapsibleSections()
+const showMap = ref(false)
 
 const spendingBarRef = ref(null)
 const vendorBarRef = ref(null)
@@ -203,6 +205,14 @@ const drillDown = (field, value) => {
   fetchSpending()
 }
 
+const handleMapSelect = ({ city, state }) => {
+  if (city) searchCity.value = city
+  if (state) searchState.value = state
+  if (!city) searchCity.value = ''
+  page.value = 0
+  fetchSpending()
+}
+
 onMounted(() => {
   readUrlParams(p => {
     if (p.year) year.value = Number(p.year)
@@ -346,6 +356,12 @@ onMounted(() => {
         <button @click="resetFilters" class="reset-btn">Reset</button>
       </div>
     </div>
+
+    <div class="section-header" @click="showMap = !showMap">
+      <span class="chevron">{{ showMap ? '▼' : '▶' }}</span>
+      <h2>Location Filter Map</h2>
+    </div>
+    <SpendingMap v-show="showMap" :visible="showMap" @select="handleMapSelect" />
 
     <div v-if="loading" class="loading"><div class="spinner"></div></div>
 

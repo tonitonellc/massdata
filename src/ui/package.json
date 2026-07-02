@@ -1,7 +1,7 @@
 {
   "name": "massdata-ui",
   "version": "0.1.0",
-  "title":"BayState.info - Data explorers for searching, filtering, and visualizing public information provided by the Commonwealth of Massachusetts.",
+  "title": "BayState.info - Data explorers for searching, filtering, and visualizing public information provided by the Commonwealth of Massachusetts.",
   "description": "Data explorer for searching, filtering, and visualizing public information provided by the Commonwealth of Massachusetts.",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "chart.js": "^4.4.2",
+    "leaflet": "^1.9.4",
     "vue": "^3.3.4"
   },
   "devDependencies": {
